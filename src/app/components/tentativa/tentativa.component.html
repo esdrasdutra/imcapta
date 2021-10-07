@@ -1,0 +1,9 @@
+<!--
+  <div class="col d-flex justify-content-end">
+  <img [src]="coracao_vazio" />
+  <img [src]="coracao_cheio" />
+  <img [src]="coracao_cheio" />
+</div>
+-->
+
+<img *ngFor="let coracao of coracoes" [src]="coracao.exibeCoracao()"/>
