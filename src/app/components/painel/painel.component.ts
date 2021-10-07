@@ -5,57 +5,53 @@ import { FRASES } from './frase-mock';
 @Component({
   selector: 'app-painel',
   templateUrl: './painel.component.html',
-  styleUrls: ['./painel.component.scss']
+  styleUrls: ['./painel.component.scss'],
 })
+
 export class PainelComponent implements OnInit {
+  public frases: Frase[] = FRASES;
+  public instrucao: string = 'Traduza a Frase:';
+  public resposta!: string;
 
-  public frases: Frase [] = FRASES
-  public instrucao: string = 'Traduza a Frase:'
-  public resposta!:string
+  public tentativas: number = 3;
 
-  public rodada: number = 0
-  public rodadaFrase!: Frase
+  public rodada: number = 0;
+  public rodadaFrase!: Frase;
 
-  public progresso: string = ''
+  public progresso: number = 0;
 
   constructor() {
-    this.atualizaRodada()
+    this.atualizaRodada();
   }
 
   public atualizaResposta(resposta: Event): void {
-    this.resposta = (<HTMLInputElement>resposta.target).value
+    this.resposta = (<HTMLInputElement>resposta.target).value;
   }
 
-  public isRight(): void{
-    if (this.resposta == this.frases[this.rodada].frasePtBr){
-      alert('ASSERTOU, MIZERÁAAVI')
-      this.rodada ++
+  public isRight(): void {
+    if (this.resposta == this.frases[this.rodada].frasePtBr) {
+      this.rodada++;
+      this.progresso = this.progresso + 100 / this.frases.length;
+      this.atualizaRodada();
 
-      var temp = 0
-      temp = temp + (100 / this.frases.length)
-      this.progresso = temp.toString()
-
-      console.log(this.progresso)
-
-      this.atualizaRodada()
-
-      this.resposta = ''
-
+      this.resposta = '';
     } else {
-      alert('ERRRRROU')
+      //diminuir a variável tentativas
+      this.tentativas--;
+
+      if (this.tentativas === -1) {
+        alert('Você está sem corações.');
+      }
     }
   }
 
-  public atualizaRodada(): void{
-
+  public atualizaRodada(): void {
     //atualizar a frase da rodada com base em algum critério
-    this.rodadaFrase = this.frases[this.rodada]
+    this.rodadaFrase = this.frases[this.rodada];
 
     //limpar resposta do usuário
-    this.resposta = ''
+    this.resposta = '';
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 }

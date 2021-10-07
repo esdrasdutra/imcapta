@@ -1,11 +1,13 @@
 <div class="container-sm">
   <div class="h-100 p-5 bg-light border rounded-3">
     <div class="row">
-      <div class="col-sm-6">
-        <app-progresso [progresso]="progresso"></app-progresso>
-      </div>
-      <div class="col-sm-6">
-        <app-tentativa></app-tentativa>
+      <div class="d-flex justify-content-between">
+        <div class="col-sm-6">
+          <app-progresso [progresso]="progresso"></app-progresso>
+        </div>
+        <div class="col-sm-6">
+          <app-tentativa [tentativas]="tentativas"></app-tentativa>
+        </div>
       </div>
     </div>
 
@@ -15,11 +17,8 @@
         <p>{{rodadaFrase.fraseEng}}</p>
       </div>
       <div class="form-group">
-        <textarea class="form-control" rows="3" id='resposta'
-        (input)="atualizaResposta($event)"
-        [value]="resposta"></textarea>
-
-
+        <textarea class="form-control" rows="3" id='resposta' (input)="atualizaResposta($event)"
+          [value]="resposta"></textarea>
         <div class="col d-flex justify-content-end">
 
           <button type="submit" class="btn btn-primary" (click)="isRight()">Verificar</button>
